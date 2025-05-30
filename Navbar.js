@@ -21,6 +21,7 @@ const NavBar = () => {
     // { label: "Quotation Builder", path: "/builder" },
     // { label: "Quotation Status", path: "/status" },
     { label: "Register",path: "/registerPage"},
+    { label: "View Details",path: "/travelDashboard"},
   ];
 
   const navButtonStyle = (active) => ({

@@ -10,6 +10,9 @@ import TravelPackagesExplorer from "./TravelPackagesExplorer";
 import PackageExplore from "./PackageExplore";
 import TravelItinerary from "./TravelItinerary";
 import RegisterPage from "./RegisterPage";
+import TravelDashboard from "./TravelDashboard";
+import PaymentPage from "./PaymentPage";
+import BookingConfirmation from "./BookingConfirmation ";
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
           <Route path="packageExplore" element={<PackageExplore/>}/>
           <Route path="travelItinerary" element={<TravelItinerary/>}/>
           <Route path="registerPage" element={<RegisterPage/>}/>
+          <Route path="travelDashboard" element={<TravelDashboard/>}/>
+          <Route path="paymentPage" element={<PaymentPage/>}/>
+          <Route path="bookingConfirmation" element={<BookingConfirmation/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

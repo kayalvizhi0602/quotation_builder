@@ -17,10 +17,21 @@ import {
   Umbrella,
   Wind
 } from 'lucide-react';
-
+import { useNavigate } from "react-router-dom";
+import { FaEdit } from 'react-icons/fa';
 
 const PackageExplore = () => {
   const [activeModal, setActiveModal] = useState(null);
+
+  const navigate = useNavigate();
+   
+  const handleBookNow = () => {
+    navigate("/paymentPage");
+  };
+
+   const TravelBookingForm = () => {
+    navigate("/travelbooking");
+  };
 
   const tourData = {
     title: "Goa Paradise",
@@ -679,6 +690,7 @@ const PackageExplore = () => {
             }}
             onMouseOver={(e) => e.target.style.backgroundColor = '#ea580c'}
             onMouseOut={(e) => e.target.style.backgroundColor = '#f97316'}
+            onClick={handleBookNow}
             >
               Book Now
             </button>
@@ -745,6 +757,28 @@ const PackageExplore = () => {
             <div>
               {modalContent[activeModal]?.content}
             </div>
+            <button
+        style={{
+          backgroundColor: '#6366f1',
+          color: 'white',
+          border: 'none',
+          padding: '12px 24px',
+          borderRadius: '8px',
+          cursor: 'pointer',
+          fontSize: '16px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+          transition: '0.3s ease'
+        }}
+        onClick={TravelBookingForm}
+        onMouseOver={(e) => (e.target.style.backgroundColor = '#4f46e5')}
+        onMouseOut={(e) => (e.target.style.backgroundColor = '#6366f1')}
+      >
+        <FaEdit />
+        Edit Now
+      </button>
           </div>
         </div>
       )}

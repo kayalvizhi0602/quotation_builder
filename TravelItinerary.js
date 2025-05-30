@@ -131,49 +131,282 @@ const TravelItinerary = () => {
     marginBottom: '20px'
   };
 
-  const renderOverviewTab = () => (
-    <div style={contentStyle}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '30px' }}>
-        <div>
-          <h1 style={{ fontSize: '32px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>
-            European Grand Tour
-          </h1>
-          <p style={{ color: '#64748b', fontSize: '16px', lineHeight: '1.6', maxWidth: '600px' }}>
-            Experience the magic of Europe with our carefully curated 14-day journey through iconic cities. 
-            From the romantic canals of Amsterdam to the historic streets of Prague, discover art, culture, 
-            and culinary delights in this unforgettable adventure.
-          </p>
-        </div>
-        <button 
-          type="submit" 
-          style={downloadButtonStyle}
-          onMouseOver={(e) => e.target.style.backgroundColor = '#5b21b6'}
-          onMouseOut={(e) => e.target.style.backgroundColor = '#6366f1'}
-        >
-          <Download size={16} />
-          Download Itinerary
-        </button>
-      </div>
+  const renderOverviewTab = () => {
+    // You can replace this with a prop or state if user selection is available
+    const numberOfDays = 14; // Default value
+    const dayCardStyle = {
+      padding: '20px',
+      backgroundColor: '#f3f4f6',
+      borderRadius: '10px',
+      border: '1px solid #e5e7eb',
+      marginBottom: '16px',
+      boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '16px',
+    };
+    // Sample day plan details (replace with your real data if available)
+    const dayPlans = [
+      {
+        destination: "Amsterdam",
+        activities: [
+          { time: "09:00", description: "Arrive at Schiphol Airport" },
+          { time: "11:00", description: "Canal cruise" },
+          { time: "14:00", description: "Visit Rijksmuseum" },
+          { time: "18:00", description: "Welcome dinner in city center" }
+        ],
+        accommodation: "Hotel Amsterdam Central",
+        transport: "Flight KL123, Private Transfer"
+      },
+      {
+        destination: "Amsterdam",
+        activities: [
+          { time: "10:00", description: "Visit Van Gogh Museum" },
+          { time: "13:00", description: "Lunch at Jordaan district" },
+          { time: "15:00", description: "Explore Jordaan neighborhood" },
+          { time: "19:00", description: "Evening walk along canals" }
+        ],
+        accommodation: "Hotel Amsterdam Central",
+        transport: "Public Transport/Walking"
+      },
+      {
+        destination: "Berlin",
+        activities: [
+          { time: "08:00", description: "Train to Berlin" },
+          { time: "13:00", description: "Check-in at hotel" },
+          { time: "15:00", description: "Berlin Wall & Brandenburg Gate tour" },
+          { time: "19:00", description: "Dinner at Alexanderplatz" }
+        ],
+        accommodation: "Hotel Berlin City",
+        transport: "Train IC234, Taxi"
+      },
+      {
+        destination: "Berlin",
+        activities: [
+          { time: "10:00", description: "Museum Island visit" },
+          { time: "13:00", description: "Lunch at Hackescher Markt" },
+          { time: "16:00", description: "Evening at Alexanderplatz" }
+        ],
+        accommodation: "Hotel Berlin City",
+        transport: "Metro/Walking"
+      },
+      {
+        destination: "Prague",
+        activities: [
+          { time: "09:00", description: "Travel to Prague" },
+          { time: "14:00", description: "Old Town Square & Astronomical Clock" },
+          { time: "18:00", description: "Dinner in Old Town" }
+        ],
+        accommodation: "Grand Prague Hotel",
+        transport: "Train EC345"
+      },
+      {
+        destination: "Prague",
+        activities: [
+          { time: "10:00", description: "Prague Castle" },
+          { time: "13:00", description: "Lunch at local bistro" },
+          { time: "15:00", description: "Charles Bridge walk" },
+          { time: "18:00", description: "Local food tasting tour" }
+        ],
+        accommodation: "Grand Prague Hotel",
+        transport: "Walking"
+      },
+      {
+        destination: "Vienna",
+        activities: [
+          { time: "08:00", description: "Train to Vienna" },
+          { time: "12:00", description: "St. Stephen’s Cathedral" },
+          { time: "15:00", description: "Ringstrasse walk" },
+          { time: "19:00", description: "Dinner at Naschmarkt" }
+        ],
+        accommodation: "Vienna Royal Inn",
+        transport: "Train RJ456"
+      },
+      {
+        destination: "Vienna",
+        activities: [
+          { time: "10:00", description: "Schönbrunn Palace tour" },
+          { time: "14:00", description: "Vienna Opera House visit" },
+          { time: "18:00", description: "Evening concert" }
+        ],
+        accommodation: "Vienna Royal Inn",
+        transport: "Metro/Walking"
+      },
+      {
+        destination: "Salzburg",
+        activities: [
+          { time: "08:00", description: "Day trip to Salzburg" },
+          { time: "11:00", description: "Sound of Music tour" },
+          { time: "15:00", description: "Explore Salzburg Old Town" },
+          { time: "19:00", description: "Return to Vienna" }
+        ],
+        accommodation: "Vienna Royal Inn",
+        transport: "Train RJ789"
+      },
+      {
+        destination: "Vienna",
+        activities: [
+          { time: "10:00", description: "Free time for shopping and cafes" },
+          { time: "15:00", description: "Relax at Stadtpark" }
+        ],
+        accommodation: "Vienna Royal Inn",
+        transport: "Walking"
+      },
+      {
+        destination: "Paris",
+        activities: [
+          { time: "08:00", description: "Fly to Paris" },
+          { time: "12:00", description: "Check-in at hotel" },
+          { time: "14:00", description: "Eiffel Tower visit" },
+          { time: "18:00", description: "Seine river cruise" }
+        ],
+        accommodation: "Hotel Paris Centre",
+        transport: "Flight AF567, Taxi"
+      },
+      {
+        destination: "Paris",
+        activities: [
+          { time: "10:00", description: "Louvre Museum" },
+          { time: "13:00", description: "Lunch in Montmartre" },
+          { time: "15:00", description: "Montmartre exploration" }
+        ],
+        accommodation: "Hotel Paris Centre",
+        transport: "Metro/Walking"
+      },
+      {
+        destination: "Versailles",
+        activities: [
+          { time: "09:00", description: "Day trip to Versailles Palace" },
+          { time: "13:00", description: "Palace gardens tour" },
+          { time: "19:00", description: "Farewell dinner in Paris" }
+        ],
+        accommodation: "Hotel Paris Centre",
+        transport: "Train RER C"
+      },
+      {
+        destination: "Paris",
+        activities: [
+          { time: "08:00", description: "Pack and relax at hotel" },
+          { time: "11:00", description: "Departure from Paris" }
+        ],
+        accommodation: "-",
+        transport: "Airport Transfer"
+      }
+    ];
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
-        <div style={{ padding: '24px', backgroundColor: '#f8fafc', borderRadius: '12px' }}>
-          <Calendar style={{ color: '#6366f1', marginBottom: '12px' }} size={24} />
-          <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#1e293b', marginBottom: '8px' }}>Duration</h3>
-          <p style={{ color: '#64748b' }}>14 Days, 13 Nights</p>
+    return (
+      <div style={contentStyle}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '30px' }}>
+          <div>
+            <h1 style={{ fontSize: '32px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>
+              European Grand Tour
+            </h1>
+            <p style={{ color: '#64748b', fontSize: '16px', lineHeight: '1.6', maxWidth: '600px' }}>
+              Experience the magic of Europe with our carefully curated {numberOfDays}-day journey through iconic cities. 
+              From the romantic canals of Amsterdam to the historic streets of Prague, discover art, culture, 
+              and culinary delights in this unforgettable adventure.
+            </p>
+          </div>
+          <button 
+            type="submit" 
+            style={downloadButtonStyle}
+            onMouseOver={(e) => e.target.style.backgroundColor = '#5b21b6'}
+            onMouseOut={(e) => e.target.style.backgroundColor = '#6366f1'}
+          >
+            <Download size={16} />
+            Download Itinerary
+          </button>
         </div>
-        <div style={{ padding: '24px', backgroundColor: '#f8fafc', borderRadius: '12px' }}>
-          <MapPin style={{ color: '#6366f1', marginBottom: '12px' }} size={24} />
-          <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#1e293b', marginBottom: '8px' }}>Destinations</h3>
-          <p style={{ color: '#64748b' }}>Amsterdam, Berlin, Prague, Vienna</p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px', marginBottom: '32px' }}>
+          <div style={{ padding: '24px', backgroundColor: '#f8fafc', borderRadius: '12px' }}>
+            <Calendar style={{ color: '#6366f1', marginBottom: '12px' }} size={24} />
+            <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#1e293b', marginBottom: '8px' }}>Duration</h3>
+            <p style={{ color: '#64748b' }}>{numberOfDays} Days, {numberOfDays - 1} Nights</p>
+          </div>
+          <div style={{ padding: '24px', backgroundColor: '#f8fafc', borderRadius: '12px' }}>
+            <MapPin style={{ color: '#6366f1', marginBottom: '12px' }} size={24} />
+            <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#1e293b', marginBottom: '8px' }}>Destinations</h3>
+            <p style={{ color: '#64748b' }}>Amsterdam, Berlin, Prague, Vienna</p>
+          </div>
+          <div style={{ padding: '24px', backgroundColor: '#f8fafc', borderRadius: '12px' }}>
+            <User style={{ color: '#6366f1', marginBottom: '12px' }} size={24} />
+            <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#1e293b', marginBottom: '8px' }}>Group Size</h3>
+            <p style={{ color: '#64748b' }}>Max 16 travelers</p>
+          </div>
         </div>
-        <div style={{ padding: '24px', backgroundColor: '#f8fafc', borderRadius: '12px' }}>
-          <User style={{ color: '#6366f1', marginBottom: '12px' }} size={24} />
-          <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#1e293b', marginBottom: '8px' }}>Group Size</h3>
-          <p style={{ color: '#64748b' }}>Max 16 travelers</p>
+
+        {/* Day Plans Section */}
+        <div style={{ marginTop: '24px' }}>
+          <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', marginBottom: '18px' }}>Day Plans</h2>
+          {Array.from({ length: numberOfDays }, (_, i) => {
+            const plan = dayPlans[i];
+            return (
+              <div key={i} style={{
+                ...dayCardStyle,
+                borderLeft: '6px solid #6366f1',
+                background: '#fff',
+                boxShadow: '0 2px 8px rgba(99,102,241,0.07)',
+                marginBottom: '28px'
+              }}>
+                <div style={{
+                  minWidth: '56px', height: '56px', background: '#6366f1', color: 'white', borderRadius: '12px', fontWeight: 700, fontSize: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 1px 4px rgba(99,102,241,0.13)', marginRight: '20px'
+                }}>{`Day ${i + 1}`}</div>
+                <div style={{ flex: 1 }}>
+                  {plan ? (
+                    <>
+                      {/* Destination */}
+                      <div style={{ fontSize: '20px', fontWeight: 700, color: '#4f46e5', marginBottom: '6px', letterSpacing: '0.5px' }}>
+                        <MapPin size={18} style={{ verticalAlign: 'middle', marginRight: 6, color: '#6366f1' }} />
+                        {plan.destination}
+                      </div>
+                      {/* Activities */}
+                      <div style={{ marginBottom: '8px', marginTop: '6px' }}>
+                        <span style={{ fontWeight: 600, color: '#1e293b', fontSize: '16px', marginBottom: '2px', display: 'block' }}>Activities:</span>
+                        <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+                          {plan.activities.map((act, idx) => (
+                            <li key={idx} style={{ display: 'flex', alignItems: 'center', marginBottom: 3 }}>
+                              <span style={{
+                                background: '#eef2ff',
+                                color: '#6366f1',
+                                borderRadius: '6px',
+                                fontWeight: 600,
+                                fontSize: '13px',
+                                padding: '2px 10px',
+                                marginRight: 10,
+                                minWidth: 54,
+                                textAlign: 'center',
+                                letterSpacing: '0.2px',
+                                display: 'inline-block'
+                              }}>{act.time}</span>
+                              <span style={{ color: '#374151', fontSize: '15px' }}>{act.description}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      {/* Accommodation & Transport */}
+                      <div style={{ display: 'flex', gap: '24px', marginTop: '10px', flexWrap: 'wrap' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', color: '#64748b', fontSize: '15px', background: '#f1f5f9', borderRadius: '8px', padding: '6px 16px', marginRight: '8px' }}>
+                          <User size={16} style={{ marginRight: 7, color: '#6366f1' }} />
+                          <span style={{ fontWeight: 500 }}>Stay:</span>&nbsp;{plan.accommodation}
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', color: '#64748b', fontSize: '15px', background: '#f1f5f9', borderRadius: '8px', padding: '6px 16px' }}>
+                          <Plane size={16} style={{ marginRight: 7, color: '#6366f1' }} />
+                          <span style={{ fontWeight: 500 }}>Transport:</span>&nbsp;{plan.transport}
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <span style={{ color: '#64748b' }}>No plan details for Day {i + 1}.</span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderHotelTab = () => (
     <div style={contentStyle}>
@@ -311,7 +544,18 @@ const TravelItinerary = () => {
           Download Full Itinerary
         </button>
       </div>
+      {/* Attractive flight image banner */}
+      <div style={{backgroundImage:'url(https://images.unsplash.com/photo-1609265434879-80576bcdcfa3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)',
+        backgroundSize:'cover',
+        backgroundPosition:'center',
+        height:'400px',
+        width:'100%',
+        borderRadius:'12px',
+        marginBottom:'20px',
+        objectFit:'cover'
+      }}>
 
+      </div>
       <div style={{ display: 'grid', gap: '24px' }}>
         <div style={{ 
           padding: '24px', 
@@ -525,6 +769,15 @@ const TravelItinerary = () => {
           Download Transfer Details
         </button>
       </div>
+      <div style={{backgroundImage:'url(https://images.pexels.com/photos/70912/pexels-photo-70912.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)',
+        backgroundSize:'100% 100%',
+        backgroundPosition:'center',
+        height:'400px',
+        width:'100%',
+        borderRadius:'12px',
+        marginBottom:'20px',
+        objectFit:'cover'
+      }}></div>
 
       <h3 style={{ fontSize: '20px', fontWeight: '600', color: '#1e293b', marginBottom: '20px' }}>Your Transfer Segments</h3>
 
@@ -866,7 +1119,7 @@ const TravelItinerary = () => {
       >
         {({ values }) => (
           <Form>
-            <div style={headerStyle}>
+            {/* <div style={headerStyle}>
               <div style={logoStyle}>
                 TP
               </div>
@@ -878,7 +1131,7 @@ const TravelItinerary = () => {
                   Your comprehensive travel companion
                 </p>
               </div>
-            </div>
+            </div> */}
 
             <div style={tabsStyle}>
               {tabs.map((tab) => (
@@ -912,54 +1165,38 @@ const TravelItinerary = () => {
               boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
               textAlign: 'center'
             }}>
-              <div style={{ marginBottom: '20px' }}>
-                <div style={logoStyle}>
-                  TP
-                </div>
-              </div>
-              <h3 style={{ fontSize: '20px', fontWeight: '600', color: '#1e293b', marginBottom: '8px' }}>
-                Travel Itinerary Pro
-              </h3>
-              <p style={{ color: '#64748b', fontSize: '14px', marginBottom: '20px' }}>
-                Stay Updated with Travel Itinerary Pro
-              </p>
-              <div style={{ 
-                display: 'flex', 
-                gap: '12px', 
-                maxWidth: '400px', 
-                margin: '0 auto',
-                alignItems: 'center' 
-              }}>
-                <Field
-                  name="email"
-                  placeholder="Enter your email"
-                  style={{
-                    flex: 1,
-                    padding: '12px 16px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    fontSize: '14px'
-                  }}
-                />
-                <button
-                  type="submit"
-                  style={{
-                    padding: '12px 24px',
-                    backgroundColor: '#6366f1',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    fontWeight: '600',
-                    fontSize: '14px'
-                  }}
-                  onMouseOver={(e) => e.target.style.backgroundColor = '#5b21b6'}
-                  onMouseOut={(e) => e.target.style.backgroundColor = '#6366f1'}
-                >
-                  Subscribe
-                </button>
-              </div>
-            </div>
+          </div>
+         <footer style={{
+                 backgroundColor: '#1e293b',
+                 color: 'white',
+                 padding: '3rem 2rem 2rem',
+                 textAlign: 'center'
+               }}>
+                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '2rem' }}>
+                     <div style={{
+                       width: '32px',
+                       height: '32px',
+                       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                       borderRadius: '6px',
+                       display: 'flex',
+                       alignItems: 'center',
+                       justifyContent: 'center'
+                     }}>
+                       <MapPin size={20} color="white" />
+                     </div>
+                     <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>EasyBook</span>
+                   </div>
+                   <p style={{ color: '#94a3b8', marginBottom: '2rem' }}>
+                     Your trusted partner for unforgettable travel experiences around the world.
+                   </p>
+                   <div style={{ borderTop: '1px solid #334155', paddingTop: '2rem' }}>
+                     <p style={{ color: '#64748b', fontSize: '0.875rem' }}>
+                       © 2024 EasyBook. All rights reserved. | Privacy Policy | Terms of Service
+                     </p>
+                   </div>
+                 </div>
+               </footer>
           </Form>
         )}
       </Formik>
